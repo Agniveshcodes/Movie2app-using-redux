@@ -45,13 +45,17 @@ const ShowCard: FC<ShowCardProps> = ({ show }) => {
       <div className=" flex flex-wrap gap-1">
         {cast.map((items) => {
           return (
-            <img
-              src={
-                items.image?.medium || items.image?.original || placeholderImage
-              }
-              alt=""
-              className="w-10 h-10 object-contain object-center"
-            />
+            <div key={items.id}>
+              <img
+                src={
+                  items.image?.medium ||
+                  items.image?.original ||
+                  placeholderImage
+                }
+                alt=""
+                className="w-10 h-10 object-contain object-center"
+              />
+            </div>
           );
         })}
       </div>

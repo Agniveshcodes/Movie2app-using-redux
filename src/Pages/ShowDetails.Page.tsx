@@ -6,12 +6,11 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { connect, ConnectedProps } from "react-redux";
 import { State } from "../store";
 import { showsMapSelector } from "../Selectors/shows";
-import { loadShowAction } from "../Actions/Shows";
 import LoadingSpinner from "../Components/LoadingSpinner";
-import { fetchCast, fetchCast2 } from "../Apis/api";
 import CastCard from "../Components/CastCard";
-import { castDetailLoadAction, castLoadAction } from "../Actions/Cast";
 import { castMapSelector, castsNormalisedSelector } from "../Selectors/casts";
+import { loadSliceShowAction } from "../Slice/Show";
+import { castSliceDetailLoadAction, castSliceLoadAction } from "../Slice/Cast";
 
 type ownProps = WithRouterProps;
 
@@ -26,14 +25,14 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
   loadShow,
   casts,
   cast,
-  laodCast2
+  laodCast2,
 }) => {
   console.log("cast is ", cast);
   console.log("show is ", show);
 
   useEffect(() => {
-    loadShow(params.showId);
-    laodCast2(params.showId)
+    loadShow(+params.showId);
+    laodCast2(+params.showId);
     // fetchCast2(+params.showId).then((res)=> {
     //   return laodCast(res)
     // })
@@ -45,9 +44,9 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
 
   return (
     <div className="mt-2">
-      <Link to={"/"} className="text-xl w-10 font-semibold">
+      <Link to={"/"} className=" w-10 font-semibold">
         {" "}
-        <IoMdArrowRoundBack />{" "}
+        <IoMdArrowRoundBack className="text-2xl" />{" "}
       </Link>
       <h2 className="text-4xl font-semibold tracking-wide"> {show.name} </h2>
       <div className="flex space-x-3 my-2 bg-gray-300 p-2 rounded-sm">
@@ -85,6 +84,7 @@ const ShowDetailPage: FC<ShowDetailPageProps> = ({
             casts.map((items) => {
               return (
                 <CastCard
+                  key={items.id}
                   name={items.name}
                   avatarLink={
                     items.image?.medium ||
@@ -105,14 +105,14 @@ const mapStateToProps = (state: State, ownProps: ownProps) => {
   return {
     show: showsMapSelector(state)[+ownProps.params.showId!],
     casts: castsNormalisedSelector(state),
-    cast: castMapSelector(state)[+ownProps.params.showId!]
+    cast: castMapSelector(state)[+ownProps.params.showId!],
   };
 };
 
 const mapDispatchToProps = {
-  loadShow: loadShowAction,
-  laodCast: castLoadAction,
-  laodCast2: castDetailLoadAction ,
+  loadShow: loadSliceShowAction,
+  laodCast: castSliceLoadAction,
+  laodCast2: castSliceDetailLoadAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -1,25 +1,32 @@
 import { FC } from "react";
 import SearchBar from "../Components/SearchBar";
 import ShowCard from "../Components/ShowCard";
-import { showsQueryAction } from "../Actions/Shows";
 import { connect, ConnectedProps } from "react-redux";
 import { State } from "../store";
-import { showsLoadingSelector, showsQuerySelector, showsSelector } from "../Selectors/shows";
+import {
+  showsLoadingSelector,
+  showsQuerySelector,
+  showsSelector,
+} from "../Selectors/shows";
 import LoadingSpinner from "../Components/LoadingSpinner";
+import { showSliceQueryAction } from "../Slice/Show";
 
 type ShowListPageProps = {} & ReduxProps;
 
-const ShowListPage: FC<ShowListPageProps> = ({ shows, query, showsQuery , loading}) => {
+const ShowListPage: FC<ShowListPageProps> = ({
+  shows,
+  showsQuery,
+  loading,
+}) => {
   return (
     <div className="mt-2">
       <div className=" flex justify-center">
-      <SearchBar
-        value={query}
-        onChange={(event) => {
-          showsQuery(event.target.value);
-        }}
+        <SearchBar
+          onChange={(event) => {
+            showsQuery(event.target.value);
+          }}
         />
-        {loading && <LoadingSpinner />}
+        {loading && <LoadingSpinner />} 
       </div>
       {shows && (
         <div className="flex flex-wrap justify-center">
@@ -36,12 +43,12 @@ const mapStateToProps = (state: State) => {
   return {
     shows: showsSelector(state),
     query: showsQuerySelector(state),
-    loading: showsLoadingSelector(state)
+    loading: showsLoadingSelector(state),
   };
 };
 
 const mapDispatchToProps = {
-  showsQuery: showsQueryAction,
+  showsQuery: showSliceQueryAction,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
