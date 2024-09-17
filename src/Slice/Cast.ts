@@ -17,7 +17,9 @@ const castSlice = createSlice({
   reducers: {
     castLoadAction,
     castDetailLoadedAction,
-    castDetailLoadAction: (state: State, action: PayloadAction<number>) => {},
+    castDetailLoadAction: (state: State, action: PayloadAction<number>) => {
+     console.log( state , action)
+    },
   },
 });
 

@@ -22,7 +22,9 @@ const showSlice = createSlice({
     showLoadedAction,
     showsQueryAction,
     showDetailLoadedAction: showsAdapter.addOne,
-    loadShowAction: (state: State, action: PayloadAction<number>) => {},
+    loadShowAction: (state: State, action: PayloadAction<number>) => {
+      console.log(state , action)
+    },
   },
 });
 

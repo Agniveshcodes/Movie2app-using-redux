@@ -4,7 +4,6 @@ import {
   useLocation,
   useNavigate,
   useParams,
-  useSearchParams,
 } from "react-router-dom";
 
 export interface WithRouterProps {

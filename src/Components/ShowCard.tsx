@@ -14,8 +14,6 @@ const placeholderImage =
 const ShowCard: FC<ShowCardProps> = ({ show }) => {
   const [cast, setCast] = useState<Cast[]>([]);
 
-  let images: string;
-
   useEffect(() => {
     fetchCast(show.id).then((res) => setCast(res));
   }, [show.id]);
